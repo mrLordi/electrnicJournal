@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Student details</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+
+            <h:form>
+                <h:commandLink value="School page" action="#{classBean.toSchoolPage()}" />
+                <h:commandLink value="Teachers page" action="#{classBean.toTeachersPage()}" />
+                <h:commandLink value="Classes page" action="#{classBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{classBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{classBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="showStudent" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Student details" />
+                    </f:facet>
+
+                    <h:outputLabel  value="Name" />
+                    <h:inputText readonly="true" rendered="#{!studentBean.editStudent}"
+                                 value="#{studentBean.student.name}"/>
+                    <h:inputText rendered="#{studentBean.editStudent}"
+                                 value="#{studentBean.student.name}"/>
+
+                    <h:outputLabel  value="Patronymic" />
+                    <h:inputText readonly="true" rendered="#{!studentBean.editStudent}"
+                                 value="#{studentBean.student.patronymic}"/>
+                    <h:inputText rendered="#{studentBean.editStudent}"
+                                 value="#{studentBean.student.patronymic}"/>
+
+                    <h:outputLabel  value="Surname" />
+                    <h:inputText readonly="true" rendered="#{!studentBean.editStudent}"
+                                 value="#{studentBean.student.surname}" />
+                    <h:inputText rendered="#{studentBean.editStudent}"
+                                 value="#{studentBean.student.surname}"/>
+
+                    <h:outputLabel  value="Birth" />
+                    <h:inputText readonly="true" rendered="#{!studentBean.editStudent}"
+                                 value="#{studentBean.birthStr}"/>
+                    <h:inputText rendered="#{studentBean.editStudent}"
+                                 value="#{studentBean.birthStr}"/>
+
+                    <h:outputLabel  value="Phone" />
+                    <h:inputText readonly="true" rendered="#{!studentBean.editStudent}"
+                                 value="#{studentBean.student.phoneNumber}"/>
+                    <h:inputText rendered="#{studentBean.editStudent}"
+                                 value="#{studentBean.student.phoneNumber}"/>
+
+                    <h:outputLabel  value="Mail" />
+                    <h:inputText readonly="true" rendered="#{!studentBean.editStudent}"
+                                 value="#{studentBean.student.mail}"/>
+                    <h:inputText rendered="#{studentBean.editStudent}"
+                                 value="#{studentBean.student.mail}"/>
+
+                    <h:outputLabel  value="Address" />
+                    <h:inputText readonly="true" rendered="#{!studentBean.editStudent}"
+                                 value="#{studentBean.student.address}"/>
+                    <h:inputText rendered="#{studentBean.editStudent}"
+                                 value="#{studentBean.student.address}"/>
+
+                    <h:outputLabel value="Additional information" />
+                    <h:inputText readonly="true" rendered="#{!studentBean.editStudent}"
+                                 value="#{studentBean.student.additional}"/>
+                    <h:inputText rendered="#{studentBean.editStudent}"
+                                 value="#{studentBean.student.additional}"/>
+                </h:panelGrid>
+
+                <h:commandLink rendered="#{studentBean.editStudent}" value="Save"
+                               action="#{studentBean.saveStudent()}" />
+
+                <h:commandLink rendered="#{!studentBean.editStudent}" value="Edit"
+                               action="#{studentBean.toEditStudent()}" />
+
+                <h:commandLink rendered="#{!studentBean.editStudent}" value="Transfer"
+                               action="#{studentBean.toTransferStudent()}" />
+
+                <h:commandLink rendered="#{!studentBean.editStudent}" value="Exclude"
+                               action="#{studentBean.excludeStudent()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{studentBean.editStudent}" value="Cansel"
+                               action="#{studentBean.cancelSaveStudent()}" />
+            </h:form>
+            <br />
+
+            <h:form>
+
+                <h:panelGrid id="class" columns="2" styleClass="wideTable">
+                    <f:facet name="header">
+                        <h:outputText value="Student in the" />
+                    </f:facet>
+
+                    <h:outputLabel value="#{studentBean.student.className.name}" />
+                    <h:commandLink value="Details" styleClass="smallLink"
+                                   action="#{classBean.classDetails(studentBean.student.className)}" />
+                </h:panelGrid>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

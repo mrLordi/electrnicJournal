@@ -1,0 +1,26 @@
+body {
+    background-color: #74C35A;
+}
+
+.contentBlock {
+    background-color: white;
+    width: 500px;
+    margin: 200px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px 0 #686868;
+}
+
+a {
+    display: inline-block;
+    width: 100px;
+    margin: auto;
+    background-color: #74C35A;
+    color: white;
+    border-radius: 7px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+a:hover {
+    background-color: #39881F;
+}

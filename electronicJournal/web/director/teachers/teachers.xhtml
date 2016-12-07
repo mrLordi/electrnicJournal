@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Teachers page</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+
+            <h:form>
+                <h:commandLink value="School page" action="#{teachersBean.toSchoolPage()}" />
+                <h:commandLink value="Classes page" action="#{teachersBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{teachersBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{teachersBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+
+        </div>
+        <div class="dataBlock">
+            <h:form rendered="#{!teachersBean.teacherExist and !teachersBean.addTeacher}">
+                <p class="header">Teachers does not exist</p>
+                <h:commandLink value="Add teacher" action="#{teachersBean.toAddTeacher()}" />
+            </h:form>
+            <h:form rendered="#{teachersBean.teacherExist}">
+                <p class="header">All teachers</p><br />
+                <table class="wideTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Qualification</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                        <ui:repeat var="teacher" value="#{teachersBean.allTeachers}">
+                            <tr>
+                                <td>#{teacher.name}</td>
+                                <td>#{teacher.surname}</td>
+                                <td>#{teacher.qualification}</td>
+                                <td>
+                                    <h:commandLink value="Details" styleClass="smallLink"
+                                                   action="#{teachersBean.teacherDetails(teacher)}" />
+                                </td>
+                            </tr>
+                        </ui:repeat>
+                    </tbody>
+                </table>
+                <h:commandLink value="Add teacher" action="#{teachersBean.toAddTeacher()}" />
+            </h:form>
+
+            <br />
+            <h:form rendered="#{!teachersBean.classTeacherExist and !teachersBean.addClassTeacher}">
+                <p class="header">Class teachers does not exist</p>
+                <h:commandLink value="Add class teacher" action="#{teachersBean.toAddClassTeacher()}" />
+            </h:form>
+            <h:form rendered="#{teachersBean.classTeacherExist}">
+                <p class="header">All class teachers</p><br />
+                <table class="wideTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Qualification</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="teacher" value="#{teachersBean.allClassTeachers}">
+                        <tr>
+                            <td>#{teacher.name}</td>
+                            <td>#{teacher.surname}</td>
+                            <td>#{teacher.qualification}</td>
+                            <td>
+                                <h:commandLink value="Details" styleClass="smallLink"
+                                               action="#{teachersBean.classTeacherDetails(teacher)}" />
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                <h:commandLink value="Add class teacher" action="#{teachersBean.toAddClassTeacher()}" />
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

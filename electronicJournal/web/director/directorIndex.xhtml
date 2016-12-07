@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Director page</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{directorBean.toSchoolPage()}" />
+                <h:commandLink rendered="#{directorBean.schoolExist}"
+                               value="Teachers page" action="#{directorBean.toTeachersPage()}" />
+                <h:commandLink rendered="#{directorBean.schoolExist}"
+                               value="Classes page" action="#{directorBean.toClassesPage()}" />
+                <h:commandLink value="Send message" action="#{directorBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="panelPersonalInformation" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Personal Information" />
+                    </f:facet>
+                    <h:outputLabel  value="Name" />
+                    <h:inputText disabled="true" rendered="#{!directorBean.editPersonalInformation}"
+                                  value="#{directorBean.director.name}"/>
+                    <h:inputText rendered="#{directorBean.editPersonalInformation}"
+                                  value="#{directorBean.director.name}"/>
+                    <h:outputLabel value="Patronymic" />
+                    <h:inputText disabled="true" rendered="#{!directorBean.editPersonalInformation}"
+                                  value="#{directorBean.director.patronymic}"/>
+                    <h:inputText rendered="#{directorBean.editPersonalInformation}"
+                                 value="#{directorBean.director.patronymic}"/>
+                    <h:outputLabel value="Surname" />
+                    <h:inputText disabled="true" rendered="#{!directorBean.editPersonalInformation}"
+                                  value="#{directorBean.director.surname}"/>
+                    <h:inputText rendered="#{directorBean.editPersonalInformation}"
+                                 value="#{directorBean.director.surname}"/>
+                    <h:outputLabel value="Birth" />
+                    <h:inputText disabled="true" rendered="#{!directorBean.editPersonalInformation}"
+                                  value="#{directorBean.birth}" />
+                    <h:inputText rendered="#{directorBean.editPersonalInformation}"
+                                 value="#{directorBean.birth}" />
+                    <h:outputLabel value="Phone" />
+                    <h:inputText disabled="true" rendered="#{!directorBean.editPersonalInformation}"
+                                  value="#{directorBean.director.phoneNumber}"/>
+                    <h:inputText rendered="#{directorBean.editPersonalInformation}"
+                                 value="#{directorBean.director.phoneNumber}"/>
+                    <h:outputLabel value="Address" />
+                    <h:inputText disabled="true" rendered="#{!directorBean.editPersonalInformation}"
+                                  value="#{directorBean.director.address}"/>
+                    <h:inputText rendered="#{directorBean.editPersonalInformation}"
+                                 value="#{directorBean.director.address}"/>
+                    <h:outputLabel value="Mail" />
+                    <h:inputText disabled="true" rendered="#{!directorBean.editPersonalInformation}"
+                                  value="#{directorBean.director.mail}"/>
+                    <h:inputText rendered="#{directorBean.editPersonalInformation}"
+                                 value="#{directorBean.director.mail}"/>
+                    <h:outputLabel value="Additional information" />
+                    <h:inputTextarea disabled="true" rendered="#{!directorBean.editPersonalInformation}"
+                                  value="#{directorBean.director.additional}"/>
+                    <h:inputTextarea rendered="#{directorBean.editPersonalInformation}"
+                                 value="#{directorBean.director.additional}"/>
+                </h:panelGrid>
+                <h:commandLink rendered="#{!directorBean.editPersonalInformation}"
+                               value="Edit" action="#{directorBean.toChangePersonalInformation()}" />
+                <h:commandLink rendered="#{directorBean.editPersonalInformation}"
+                               value="Save" action="#{directorBean.savePersonalInformation()}" />
+                <h:commandLink rendered="#{directorBean.editPersonalInformation}"
+                               value="Cancel" action="#{directorBean.cancelSavePersonalInformation()}" />
+            </h:form>
+            <br />
+
+            <h:form rendered="#{!directorBean.qualificationExist and !directorBean.addQualification}">
+                <p class="header">Qualification does not exist</p>
+                <h:commandLink value="Add qualification" action="#{directorBean.toAddQualification()}" />
+            </h:form>
+            <h:form rendered="#{!directorBean.qualificationExist and directorBean.addQualification}">
+                <h:panelGrid id="addQualification" columns="2">
+                    <f:event listener="#{directorBean.validateQualification}" type="postValidate" />
+                    <f:facet name="header">
+                        <h:outputText value="Add qualification" />
+                    </f:facet>
+                    <h:outputLabel  value="Qualification *" />
+                    <h:inputText id="qualification" value="#{directorBean.qualification}"/>
+                </h:panelGrid>
+                <h:message for="addQualification" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink value="Save" action="#{directorBean.addQualification()}" />
+
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{directorBean.addQualification}"
+                               value="Cancel" action="#{directorBean.cancelAddQualification()}" />
+            </h:form>
+            <br />
+            <h:form rendered="#{directorBean.qualificationExist}" id="teacherInformation">
+                <p class="header">Teacher opportunities</p><br />
+                <h:panelGrid  columns="2">
+
+                    <h:outputLabel  value="Qualification" />
+                    <h:inputText disabled="true" rendered="#{!directorBean.editTeacherOpportunities}"
+                                 value="#{directorBean.director.qualification}"/>
+                    <h:inputText rendered="#{directorBean.editTeacherOpportunities}"
+                                 value="#{directorBean.director.qualification}"/>
+                </h:panelGrid>
+                <h:commandLink rendered="#{!directorBean.editTeacherOpportunities}"
+                               value="Edit" action="#{directorBean.toChangeTeacherOpportunities()}" />
+                <h:commandLink rendered="#{directorBean.editTeacherOpportunities}"
+                               value="Save" action="#{directorBean.saveTeacherOpportunities()}" />
+                <h:commandLink rendered="#{directorBean.editTeacherOpportunities}"
+                               value="Cancel" action="#{directorBean.cancelSaveTeacherOpportunities()}" />
+            </h:form>
+            <br />
+            <h:form rendered="#{directorBean.qualificationExist}">
+                <p class="subheader">Disciplines</p>
+                <h:form rendered="#{!directorBean.disciplinesExist}">
+                    <p class="subheader">no available disciplines</p>
+                </h:form>
+                <h:panelGrid id="teacherDisciplines" columns="2" rendered="#{directorBean.disciplinesExist}"
+                    styleClass="miss">
+
+                    <ui:repeat var="discipline" value="#{directorBean.director.disciplines.toArray()}">
+                        <tr>
+                            <td><h:outputLabel  value="#{discipline.name}" /></td>
+                            <td><h:commandLink value="Delete" action="#{directorBean.deleteDiscipline(discipline)}"
+                                       styleClass="innerLink"/></td>
+                        </tr>
+                    </ui:repeat>
+
+                </h:panelGrid>
+            </h:form>
+
+            <h:form rendered="#{directorBean.qualificationExist}">
+                <h:panelGrid id="addTeacherDisciplines" columns="2" rendered="#{directorBean.addDiscipline}">
+                    <f:event listener="#{directorBean.validateDiscipline}" type="postValidate" />
+                    <h:outputLabel  value="Discipline *"/>
+                    <h:inputText id="discipline" value="#{directorBean.discipline}"/>
+                </h:panelGrid>
+
+                <h:message for="addTeacherDisciplines" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink rendered="#{!directorBean.addDiscipline}"
+                               value="Add discipline" action="#{directorBean.toAddDiscipline()}" />
+                <h:commandLink rendered="#{directorBean.addDiscipline}"
+                               value="Save" action="#{directorBean.addDiscipline()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{directorBean.addDiscipline}"
+                               value="Cancel" action="#{directorBean.cancelAddDiscipline()}" />
+            </h:form>
+            <br />
+            <h:form rendered="#{directorBean.qualificationExist and !directorBean.lessonsExist}">
+                <p class="subheader">No available lessons</p>
+                <h:commandLink rendered="#{!directorBean.addLesson}"
+                               value="Add lesson" action="#{directorBean.toAddLesson()}" />
+            </h:form>
+
+            <h:form rendered="#{directorBean.lessonsExist}">
+                <p class="subheader">All lessons</p>
+                <table class="wideTable">
+                    <tr>
+                        <th>Discipline</th>
+                        <th>Class</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="classes" value="#{directorBean.director.classes.toArray()}">
+                        <tr>
+                            <td>#{classes.discipline.name}</td>
+                            <td>#{classes.className.name}</td>
+                            <td>
+                                <h:commandLink value="Details" styleClass="smallLinkForClasses"
+                                               action="#{disciplineBean.disciplineForClassDetails(classes)}" />
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                <h:commandLink rendered="#{!directorBean.addLesson}"
+                               value="Add lesson" action="#{directorBean.toAddLesson()}" />
+            </h:form>
+
+            <h:form rendered="#{directorBean.addLesson}">
+                <h:panelGrid id="addLesson" columns="2">
+                    <f:event listener="#{directorBean.validateLesson}" type="postValidate" />
+                    <h:outputLabel  value="Discipline *" />
+                    <h:inputText id="addDiscipline" value="#{directorBean.discipline}"/>
+                    <h:outputLabel  value="Class *" />
+                    <h:inputText id="class" value="#{directorBean.className}"/>
+
+                </h:panelGrid>
+                <h:message for="addLesson" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink value="Save" action="#{directorBean.addLesson()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{directorBean.addLesson}"
+                               value="Cancel" action="#{directorBean.cancelAddLesson()}" />
+            </h:form>
+
+        </div>
+    </div>
+</h:body>
+
+</html>

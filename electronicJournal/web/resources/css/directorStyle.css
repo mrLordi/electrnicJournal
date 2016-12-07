@@ -1,0 +1,187 @@
+body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    background-color: #74C35A;
+}
+
+.contentBlock {
+    background-color: white;
+    width: 1000px;
+    margin: 10px auto;
+    min-height: 600px;
+    padding: 20px;
+    box-shadow: 0 0 10px 0 #686868;
+}
+
+#school.contentBlock {
+    margin: 130px auto;
+    min-height: inherit;
+}
+
+#classes.contentBlock {
+    min-height: inherit;
+}
+
+#school .leftMenu {
+    margin-top: 10px;
+}
+
+.leftMenu {
+    width: 25%;
+}
+
+
+.dataBlock {
+    width: 65%;
+    padding: 15px 4% 10px 5%;
+}
+
+.leftMenu, .dataBlock {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.leftMenu a, .dataBlock a {
+    display: block;
+    margin: 5px;
+    padding: 5px 20px;
+    background-color: #74C35A;
+    text-decoration: none;
+    border-radius: 2px;
+    color: white;
+}
+
+td a.smallLink {
+    display: block;
+    margin: 3px 10px;
+    padding: 5px;
+    background-color: #6E8B3D;
+    text-decoration: none;
+    border-radius: 2px;
+    color: white;
+}
+
+td a.smallLinkForClasses {
+    display: block;
+    margin: 3px auto;
+    padding: 5px;
+    background-color: #6E8B3D;
+    text-decoration: none;
+    border-radius: 2px;
+    color: white;
+}
+
+.leftMenu a:hover, .dataBlock a:hover {
+    background-color: #39881F;
+}
+
+td a.innerLink {
+    display: inline-block;
+    margin-left: 4px;
+    width: 262px;
+    max-width: 100%;
+    text-align: center;
+    background-color: #6E8B3D;
+}
+
+.dataBlock a {
+    margin: 5px auto;
+    text-align: center;
+    background-color: #9BCD9B;
+    width: 74%;
+    max-width: 74%;
+}
+
+table {
+    margin: auto;
+    width: 80%;
+    max-width: 80%;
+    font-size: 14px;
+    background: white;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    text-align: center;
+    font-weight: bolder;
+    color: #74C35A;
+    padding: 10px 15px;
+}
+
+td {
+    color: #39881F;
+    min-width: 150px;
+    max-width: 50%;
+    border-top: 1px solid #e8edff;
+    padding: 3px 15px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.header {
+    text-align: center;
+    font-weight: bolder;
+    color: #74C35A;
+    margin: auto;
+}
+
+.subheader {
+    text-align: center;
+    color: #74C35A;
+    margin: auto;
+}
+
+#header {
+    text-align: center;
+    font-weight: bolder;
+    color: #74C35A;
+    margin: 100px auto auto;
+}
+
+input[type="text"] {
+    border: 0px solid transparent;
+    width: 300px;
+    height: 30px;
+    margin: 2px 5px;
+    text-align: center;
+    color: #BCBCBC;
+    background-color: #F2F2F2;
+}
+
+input[type="text"].activity {
+    width: 50px;
+}
+
+input[type="text"].additional {
+    width: 250px;
+}
+
+textarea {
+    border: 0px solid transparent;
+    width: 296px;
+    height: 30px;
+    margin: 2px 5px;
+    text-align: center;
+    color: #BCBCBC;
+    background-color: #F2F2F2;
+    resize: vertical;
+}
+
+td:nth-child(2n + 1) {
+    width: 150px;
+}
+
+.miss tr:nth-child(1) {
+    display: none;
+}
+
+.wideTable td{
+    width: auto;
+    min-width: inherit;
+    color: #39881F;
+    border-top: 1px solid #e8edff;
+    padding: inherit;
+    text-align: center;
+}

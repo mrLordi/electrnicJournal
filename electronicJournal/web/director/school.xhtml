@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>School management</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div id = "school" class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink rendered="#{directorBean.schoolExist}"
+                               value="Teachers page" action="#{schoolBean.toTeachersPage()}" />
+                <h:commandLink rendered="#{directorBean.schoolExist}"
+                               value="Classes page" action="#{schoolBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{schoolBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{schoolBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form rendered="#{!directorBean.schoolExist and !schoolBean.addSchool}">
+                <p class="header" >School does not exist</p>
+                <h:commandLink value="Add School" action="#{schoolBean.toAddSchool()}" />
+            </h:form>
+
+            <h:form rendered="#{!directorBean.schoolExist and schoolBean.addSchool}">
+                <h:panelGrid id="registerSchool" columns="2">
+                    <f:event listener="#{schoolBean.validateForm}" type="postValidate" />
+                    <f:facet name="header">
+                        <h:outputText value="Add school" />
+                    </f:facet>
+                    <h:outputLabel  value="Name *" />
+                    <h:inputText id="name" value="#{schoolBean.name}"/>
+                    <h:outputLabel value="Address *" />
+                    <h:inputText id="address" value="#{schoolBean.address}"/>
+                    <h:outputLabel value="Phone *" />
+                    <h:inputText id="phone" value="#{schoolBean.phone}"/>
+                    <h:outputLabel value="Information *" />
+                    <h:inputTextarea id="information" value="#{schoolBean.information}"/>
+                </h:panelGrid>
+                <h:message for="registerSchool" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink value="Save" action="#{schoolBean.createSchool()}" />
+            </h:form>
+            <h:form rendered="#{!directorBean.schoolExist and schoolBean.addSchool}">
+                <h:commandLink value="Cancel" action="#{schoolBean.cancelCreateSchool()}" />
+            </h:form>
+
+            <h:form rendered="#{directorBean.schoolExist}">
+                <h:panelGrid id="displaySchool" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Information about school" />
+                    </f:facet>
+                    <h:outputLabel  value="Name" />
+                    <h:inputText rendered="#{!schoolBean.editSchool}"
+                            disabled="true" value="#{schoolBean.school.name}"/>
+                    <h:inputText rendered="#{schoolBean.editSchool}"
+                                 value="#{schoolBean.school.name}"/>
+                    <h:outputLabel value="Address" />
+                    <h:inputText rendered="#{!schoolBean.editSchool}"
+                            disabled="true" value="#{schoolBean.school.address}"/>
+                    <h:inputText rendered="#{schoolBean.editSchool}"
+                                 value="#{schoolBean.school.address}"/>
+                    <h:outputLabel value="Phone" />
+                    <h:inputText rendered="#{!schoolBean.editSchool}"
+                            disabled="true" value="#{schoolBean.school.phoneNumber}"/>
+                    <h:inputText rendered="#{schoolBean.editSchool}"
+                                 value="#{schoolBean.school.phoneNumber}"/>
+                    <h:outputLabel value="Information" />
+                    <h:inputTextarea rendered="#{!schoolBean.editSchool}"
+                            disabled="true" value="#{schoolBean.school.information}"/>
+                    <h:inputTextarea rendered="#{schoolBean.editSchool}"
+                                 value="#{schoolBean.school.information}"/>
+                </h:panelGrid>
+                <h:commandLink rendered="#{!schoolBean.editSchool}"
+                        value="Edit" action="#{schoolBean.toEditSchool()}" />
+                <h:commandLink rendered="#{schoolBean.editSchool}"
+                               value="Save" action="#{schoolBean.editSchoolInformation()}" />
+                <h:commandLink rendered="#{schoolBean.editSchool}"
+                               value="Cancel" action="#{schoolBean.cancelEditSchool()}" />
+            </h:form>
+
+        </div>
+    </div>
+</h:body>
+
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Classes page</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div id = "classes" class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{classBean.toSchoolPage()}" />
+                <h:commandLink value="Teachers page" action="#{classBean.toTeachersPage()}" />
+                <h:commandLink value="Home Page" action="#{classBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{classBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form rendered="#{!classBean.classesExist and !classBean.addClass}">
+                <p class="header">Classes does not exist</p>
+                <h:commandLink value="Add class" action="#{classBean.toAddClass()}" />
+            </h:form>
+
+            <h:form rendered="#{classBean.classesExist}">
+                <p class="header">All classes</p>
+                <table class="wideTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="class" value="#{classBean.allClasses}">
+                        <tr>
+                            <td>#{class.name}</td>
+                            <td>
+                                <h:commandLink value="Details" styleClass="smallLinkForClasses"
+                                               action="#{classBean.classDetails(class)}" />
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                <h:commandLink rendered="#{!classBean.addClass}" value="Add class" action="#{classBean.toAddClass()}" />
+            </h:form>
+
+            <h:form rendered="#{classBean.addClass}">
+                <h:panelGrid id="registerSchool" columns="2">
+                    <f:event listener="#{classBean.validateForm}" type="postValidate" />
+                    <f:facet name="header">
+                        <h:outputText value="Add class" />
+                    </f:facet>
+                    <h:outputLabel  value="Name *" />
+                    <h:inputText id="name" value="#{classBean.name}"/>
+                </h:panelGrid>
+                <h:message for="registerSchool" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink rendered="#{classBean.addClass}" value="Save" action="#{classBean.addClass()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{classBean.addClass}" value="Cancel" action="#{classBean.cancelAddClass()}" />
+            </h:form>
+            <br />
+        </div>
+    </div>
+</h:body>
+
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>School page</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="Class teacher page" action="#{studentController.toClassTeacher()}" />
+                <h:commandLink value="Teachers page" action="#{studentController.toTeachersPage()}" />
+                <h:commandLink value="Home Page" action="#{studentController.toHomePage()}"/>
+                <h:commandLink value="Recieve message" action="#{jmsReceiver.receiveMessage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="SchoolInformation" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Information about school" />
+                    </f:facet>
+                    <h:outputLabel  value="Name" />
+                    <h:inputText disabled="true" value="#{studentController.school.name}"/>
+
+                    <h:outputLabel value="Phone" />
+                    <h:inputText disabled="true" value="#{studentController.school.phoneNumber}"/>
+
+                    <h:outputLabel value="Address" />
+                    <h:inputText disabled="true" value="#{studentController.school.address}"/>
+
+                    <h:outputLabel value="Information" />
+                    <h:inputTextarea disabled="true" value="#{studentController.school.information}"/>
+
+                </h:panelGrid>
+            </h:form>
+            <br />
+
+            <h:form>
+                <h:panelGrid id="directorInformation" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Information about director" />
+                    </f:facet>
+                    <h:outputLabel  value="Name" />
+                    <h:inputText disabled="true" value="#{studentController.director.name}"/>
+
+                    <h:outputLabel value="Patronymic" />
+                    <h:inputText disabled="true" value="#{studentController.director.patronymic}"/>
+
+                    <h:outputLabel value="Surname" />
+                    <h:inputText disabled="true" value="#{studentController.director.surname}"/>
+
+                    <h:outputLabel value="Birth" />
+                    <h:inputText disabled="true" value="#{studentController.directorBirth}" />
+
+                    <h:outputLabel value="Phone" />
+                    <h:inputText disabled="true" value="#{studentController.director.phoneNumber}"/>
+
+                    <h:outputLabel value="Address" />
+                    <h:inputText disabled="true" value="#{studentController.director.address}"/>
+
+                    <h:outputLabel value="Mail" />
+                    <h:inputText disabled="true" value="#{studentController.director.mail}"/>
+
+                    <h:outputLabel value="Qualification" />
+                    <h:inputText disabled="true" value="#{studentController.director.qualification}"/>
+
+                    <h:outputLabel value="Additional information" />
+                    <h:inputTextarea disabled="true" value="#{studentController.director.additional}"/>
+
+                </h:panelGrid>
+            </h:form>
+
+        </div>
+    </div>
+</h:body>
+
+</html>

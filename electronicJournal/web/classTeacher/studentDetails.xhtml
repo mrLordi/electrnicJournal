@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Student details</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+
+            <h:form>
+                <h:commandLink value="School page" action="#{classTeacherController.toSchoolPage()}" />
+                <h:commandLink value="Class page" action="#{classTeacherController.toClassPage()}" />
+                <h:commandLink value="Home Page" action="#{classTeacherController.toHomePage()}"/>
+                <h:commandLink value="Recieve message" action="#{jmsReceiver.receiveMessage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="showStudent" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Student details" />
+                    </f:facet>
+
+                    <h:outputLabel  value="Name" />
+                    <h:inputText readonly="true" rendered="#{!classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.name}"/>
+                    <h:inputText rendered="#{classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.name}"/>
+
+                    <h:outputLabel  value="Patronymic" />
+                    <h:inputText readonly="true" rendered="#{!classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.patronymic}"/>
+                    <h:inputText rendered="#{classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.patronymic}"/>
+
+                    <h:outputLabel  value="Surname" />
+                    <h:inputText readonly="true" rendered="#{!classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.surname}" />
+                    <h:inputText rendered="#{classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.surname}"/>
+
+                    <h:outputLabel  value="Birth" />
+                    <h:inputText readonly="true" rendered="#{!classTeacherController.editStudent}"
+                                 value="#{classTeacherController.birthStr}"/>
+                    <h:inputText rendered="#{classTeacherController.editStudent}"
+                                 value="#{classTeacherController.birthStr}"/>
+
+                    <h:outputLabel  value="Phone" />
+                    <h:inputText readonly="true" rendered="#{!classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.phoneNumber}"/>
+                    <h:inputText rendered="#{classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.phoneNumber}"/>
+
+                    <h:outputLabel  value="Mail" />
+                    <h:inputText readonly="true" value="#{classTeacherController.student.mail}"/>
+
+                    <h:outputLabel  value="Address" />
+                    <h:inputText readonly="true" rendered="#{!classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.address}"/>
+                    <h:inputText rendered="#{classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.address}"/>
+
+                    <h:outputLabel value="Additional information" />
+                    <h:inputText readonly="true" rendered="#{!classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.additional}"/>
+                    <h:inputText rendered="#{classTeacherController.editStudent}"
+                                 value="#{classTeacherController.student.additional}"/>
+                </h:panelGrid>
+
+                <h:commandLink rendered="#{classTeacherController.editStudent}" value="Save"
+                               action="#{classTeacherController.saveStudent()}" />
+
+                <h:commandLink rendered="#{!classTeacherController.editStudent}" value="Edit"
+                               action="#{classTeacherController.toEditStudent()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{classTeacherController.editStudent}" value="Cansel"
+                               action="#{classTeacherController.cancelSaveStudent()}" />
+            </h:form>
+            <br />
+        </div>
+    </div>
+</h:body>
+
+</html>

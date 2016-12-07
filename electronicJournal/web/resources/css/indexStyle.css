@@ -1,0 +1,27 @@
+body {
+    background-color: #74C35A;
+}
+
+.indexBlock {
+    background-color: white;
+    width: 500px;
+    margin: 200px auto;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px 0 #686868;
+}
+
+.indexBlock a {
+    display: inline-block;
+    width: 100px;
+    margin: 10px auto;
+    background-color: #74C35A;
+    color: white;
+    border-radius: 7px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.indexBlock a:hover {
+    background-color: #39881F;
+}

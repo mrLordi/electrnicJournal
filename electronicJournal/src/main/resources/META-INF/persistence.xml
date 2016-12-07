@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
-    <persistence-unit name="NewPersistenceUnit">
+    <persistence-unit name="electronicJournal" transaction-type="JTA">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>java:jboss/datasources/electronicJournalDataSource</jta-data-source>
+
+        <class>entities.Director</class>
+        <class>entities.ClassName</class>
+        <class>entities.ClassTeacher</class>
+        <class>entities.Discipline</class>
+        <class>entities.Person</class>
+        <class>entities.School</class>
+        <class>entities.Student</class>
+        <class>entities.Teacher</class>
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+
         <properties>
-            <property name="hibernate.connection.url" value=""/>
-            <property name="hibernate.connection.driver_class" value=""/>
-            <property name="hibernate.connection.username" value=""/>
-            <property name="hibernate.connection.password" value=""/>
-            <property name="hibernate.archive.autodetection" value="class"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
-            <property name="hbm2ddl.auto" value="update"/>
+            <property name="hibernate.transaction.jta.platform"
+                      value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
+
 </persistence>

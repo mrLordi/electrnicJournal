@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Class details</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{classTeacherController.toSchoolPage()}" />
+                <h:commandLink value="Class page" action="#{classTeacherController.toClassPage()}" />
+                <h:commandLink value="Home Page" action="#{classTeacherController.toHomePage()}"/>
+                <h:commandLink value="Recieve message" action="#{jmsReceiver.receiveMessage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+
+            <h:form rendered="#{classTeacherController.dissolveClass}">
+                <p class="header">Students does not exist.</p>
+                <h:commandLink value="Add student" action="#{classTeacherController.toAddStudent()}" />
+            </h:form>
+
+            <h:form rendered="#{!classTeacherController.dissolveClass}">
+                <p class="header">All students this class</p>
+                <table class="wideTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="student" value="#{classTeacherController.className.students.toArray()}">
+                        <tr>
+                            <td>#{student.name}</td>
+                            <td>#{student.surname}</td>
+                            <td>
+                                <h:commandLink value="Details" styleClass="smallLink"
+                                               action="#{classTeacherController.studentDetails(student)}" />
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                <h:commandLink value="Add student" action="#{classTeacherController.toAddStudent()}" />
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

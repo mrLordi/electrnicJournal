@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+    <title>Registration new account</title>
+    <h:outputStylesheet library="css" name="registrationStyle.css" />
+</h:head>
+<h:body>
+    <h:form styleClass="registerForm">
+        <h:panelGrid columns="1" id="RegisterGroupPanel" styleClass="registerGroup">
+            <f:event listener="#{accountBean.validateForm}" type="postValidate" />
+            <h:panelGroup>
+                <h:inputText id="name" a:placeholder="Name" value="#{accountBean.name}"/>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputText id="patronymic" a:placeholder="Patronymic" value="#{accountBean.patronymic}"/>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputText id="surname" a:placeholder="Surname" value="#{accountBean.surname}"/>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputText a:placeholder="Birth" id="birth" value="#{accountBean.birth}">
+                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                </h:inputText>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputText id="phone" a:placeholder="Phone" value="#{accountBean.phone}"/>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputText id="mail" a:placeholder="E-Mail" value="#{accountBean.mail}"/>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputText id="address" a:placeholder="Address" value="#{accountBean.address}"/>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputTextarea row="10" col="10" id="additionalInformation" a:placeholder="Additional information"
+                                 value="#{accountBean.additionalInformation}"/>
+            </h:panelGroup><br />
+            <h:panelGroup>
+                <h:inputText id="login" a:placeholder="Login" value="#{accountBean.login}"/>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputSecret id="password" a:placeholder="Password" value="#{accountBean.password}" />*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputSecret id="confirmPassword" a:placeholder="Confirm password" value="#{accountBean.password}"/>*
+            </h:panelGroup>
+        </h:panelGrid>
+        <h:message for="birth" style="color:red" /><br />
+        <h:message for="RegisterGroupPanel" style="color: red;" />
+        <br />
+        <h:commandLink value="Sign up" action="#{accountBean.signUp()}" styleClass="link"/>
+        <h:link value="Back" outcome="/index" styleClass="link"/>
+        <p class="signIn">Are you already have an account?
+            <h:link outcome="/login" value="Sign in"/>
+        </p>
+    </h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Teacher page</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{classTeacherController.toSchoolPage()}" />
+                <h:commandLink value="Class page" action="#{classTeacherController.toClassPage()}" />
+                <h:commandLink value="Recieve message" action="#{jmsReceiver.receiveMessage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="panelPersonalInformation" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Personal Information" />
+                    </f:facet>
+                    <h:outputLabel  value="Name" />
+                    <h:inputText disabled="true" value="#{classTeacherController.classTeacher.name}"/>
+
+                    <h:outputLabel value="Patronymic" />
+                    <h:inputText disabled="true" value="#{classTeacherController.classTeacher.patronymic}"/>
+
+                    <h:outputLabel value="Surname" />
+                    <h:inputText disabled="true" value="#{classTeacherController.classTeacher.surname}"/>
+
+                    <h:outputLabel value="Birth" />
+                    <h:inputText disabled="true" value="#{classTeacherController.classTeacherBirth}" />
+
+                    <h:outputLabel value="Phone" />
+                    <h:inputText disabled="true" value="#{classTeacherController.classTeacher.phoneNumber}"/>
+
+                    <h:outputLabel value="Address" />
+                    <h:inputText disabled="true" value="#{classTeacherController.classTeacher.address}"/>
+
+                    <h:outputLabel value="Mail" />
+                    <h:inputText disabled="true" value="#{classTeacherController.classTeacher.mail}"/>
+
+                    <h:outputLabel value="Qualification" />
+                    <h:inputText disabled="true" value="#{classTeacherController.classTeacher.qualification}"/>
+
+                    <h:outputLabel value="Additional information" />
+                    <h:inputTextarea disabled="true"  value="#{classTeacherController.classTeacher.additional}"/>
+
+                </h:panelGrid>
+            </h:form>
+
+            <br />
+            <p class="header">Teacher opportunities</p><br />
+            <h:form>
+                <p class="subheader">Disciplines</p>
+                <h:form rendered="#{!classTeacherController.disciplinesExist}">
+                    <p class="subheader">no available disciplines</p>
+                </h:form>
+                <h:panelGrid id="teacherDisciplines" columns="1" rendered="#{classTeacherController.disciplinesExist}"
+                             styleClass="miss">
+
+                    <ui:repeat var="discipline" value="#{classTeacherController.classTeacher.disciplines.toArray()}">
+                        <tr>
+                            <td align="center"><h:outputLabel  value="#{discipline.name}" /></td>
+                        </tr>
+                    </ui:repeat>
+
+                </h:panelGrid>
+            </h:form>
+
+            <br />
+            <h:form rendered="#{!classTeacherController.lessonsExist}">
+                <p class="subheader">No available lessons</p>
+            </h:form>
+
+            <h:form rendered="#{classTeacherController.lessonsExist}">
+                <p class="subheader">All lessons</p>
+                <table class="wideTable">
+                    <tr>
+                        <th>Discipline</th>
+                        <th>Class</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="classes" value="#{classTeacherController.classTeacher.classes.toArray()}">
+                        <tr>
+                            <td>#{classes.discipline.name}</td>
+                            <td>#{classes.className.name}</td>
+                            <td>
+                                <h:commandLink value="Details" styleClass="smallLinkForClasses"
+                                               action="#{disciplineBean.disciplineForClassDetails(classes)}" />
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+            </h:form>
+
+        </div>
+    </div>
+</h:body>
+
+</html>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Teacher details</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{studentController.toSchoolPage()}" />
+                <h:commandLink value="Class teacher page" action="#{studentController.toClassTeacher()}" />
+                <h:commandLink value="Teachers page" action="#{studentController.toTeachersPage()}" />
+                <h:commandLink value="Home Page" action="#{studentController.toHomePage()}"/>
+                <h:commandLink value="Recieve message" action="#{jmsReceiver.receiveMessage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="panelPersonalInformation" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Personal Information" />
+                    </f:facet>
+                    <h:outputLabel  value="Name" />
+                    <h:inputText disabled="true" value="#{studentController.teacher.name}"/>
+
+                    <h:outputLabel value="Patronymic" />
+                    <h:inputText disabled="true" value="#{studentController.teacher.patronymic}"/>
+
+                    <h:outputLabel value="Surname" />
+                    <h:inputText disabled="true" value="#{studentController.teacher.surname}"/>
+
+                    <h:outputLabel value="Birth" />
+                    <h:inputText disabled="true" value="#{studentController.teacherBirth}" />
+
+                    <h:outputLabel value="Phone" />
+                    <h:inputText disabled="true" value="#{studentController.teacher.phoneNumber}"/>
+
+                    <h:outputLabel value="Address" />
+                    <h:inputText disabled="true" value="#{studentController.teacher.address}"/>
+
+                    <h:outputLabel value="Mail" />
+                    <h:inputText disabled="true" value="#{studentController.teacher.mail}"/>
+
+                    <h:outputLabel value="Qualification" />
+                    <h:inputText disabled="true" value="#{studentController.teacher.qualification}"/>
+
+                    <h:outputLabel value="Additional information" />
+                    <h:inputTextarea disabled="true" value="#{studentController.student.additional}"/>
+
+                </h:panelGrid>
+                <h:commandLink value="Back" rendered="#{!studentController.teachersPage}"
+                               action="#{studentController.toDetailsOfLesson(studentController.discipline, studentController.teacher)}" />
+                <h:commandLink value="Back" rendered="#{studentController.teachersPage}"
+                               action="#{studentController.toTeachersPage()}" />
+            </h:form>
+            <br />
+
+        </div>
+    </div>
+</h:body>
+
+</html>

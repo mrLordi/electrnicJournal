@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Add teachers</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{teachersBean.toSchoolPage()}" />
+                <h:commandLink value="Teachers page" action="#{teachersBean.toTeachersPage()}" />
+                <h:commandLink value="Classes page" action="#{teachersBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{teachersBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{teachersBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form rendered="#{teachersBean.addTeacher or teachersBean.addClassTeacher}">
+                <h:panelGrid id="addTeacher" columns="2">
+                    <f:event listener="#{teachersBean.validateForm}" type="postValidate" />
+                    <f:facet name="header">
+                        <h:outputText value="Add teacher" rendered="#{teachersBean.addTeacher}"/>
+                        <h:outputText value="Add class teacher" rendered="#{teachersBean.addClassTeacher}"/>
+                    </f:facet>
+                    <h:outputLabel  value="Name *" />
+                    <h:inputText id="teacherName" value="#{teachersBean.name}"/>
+                    <h:outputLabel  value="Patronymic *" />
+                    <h:inputText id="teacherPatronymic" value="#{teachersBean.patronymic}"/>
+                    <h:outputLabel  value="Surname *" />
+                    <h:inputText id="teacherSurname" value="#{teachersBean.surname}"/>
+                    <h:outputLabel  value="Birth *" />
+                    <h:inputText id="teacherBirth" value="#{teachersBean.birth}">
+                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                    </h:inputText>
+                    <h:outputLabel  value="Phone *" />
+                    <h:inputText id="teacherPhone" value="#{teachersBean.phone}"/>
+                    <h:outputLabel  value="Mail*" />
+                    <h:inputText id="teacherMail" value="#{teachersBean.mail}"/>
+                    <h:outputLabel  value="Address *" />
+                    <h:inputText id="teacherAddress" value="#{teachersBean.address}"/>
+                    <h:outputLabel  value="Qualification *" />
+                    <h:inputText id="teacherQualification" value="#{teachersBean.qualification}"/>
+                    <h:outputLabel  value="Additional information" />
+                    <h:inputTextarea id="teacherAdditionalInformation" value="#{teachersBean.additionalInformation}"/>
+
+                    <h:panelGroup rendered="#{teachersBean.addClassTeacher}">
+                        <br />
+                        <h:outputLabel value="Class name" />
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{teachersBean.addClassTeacher}">
+                        <br />
+                        <h:inputText id="className" value="#{teachersBean.className}"/>
+                    </h:panelGroup>
+
+                </h:panelGrid>
+                <h:message for="teacherBirth" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:message for="addTeacher" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink rendered="#{teachersBean.addTeacher}"
+                               value="Save" action="#{teachersBean.addTeacher()}" />
+                <h:commandLink rendered="#{teachersBean.addClassTeacher}"
+                               value="Save" action="#{teachersBean.addClassTeacher()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink value="Cancel" action="#{teachersBean.cancelAddTeacher()}" />
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

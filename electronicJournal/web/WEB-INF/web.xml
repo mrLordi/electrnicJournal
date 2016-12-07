@@ -12,4 +12,87 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>director</web-resource-name>
+            <url-pattern>/director/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>DIRECTOR</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>teacher</web-resource-name>
+            <url-pattern>/teacher/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>TEACHER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>classTeacher</web-resource-name>
+            <url-pattern>/classTeacher/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>CLASS_TEACHER</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>student</web-resource-name>
+            <url-pattern>/student/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>STUDENT</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-role>
+        <role-name>DIRECTOR</role-name>
+    </security-role>
+    <security-role>
+        <role-name>TEACHER</role-name>
+    </security-role>
+    <security-role>
+        <role-name>CLASS_TEACHER</role-name>
+    </security-role>
+    <security-role>
+        <role-name>STUDENT</role-name>
+    </security-role>
 </web-app>

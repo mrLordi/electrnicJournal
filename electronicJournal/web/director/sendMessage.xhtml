@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Send message page</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{directorBean.toSchoolPage()}" />
+                <h:commandLink value="Teachers page" action="#{directorBean.toTeachersPage()}" />
+                <h:commandLink value="Classes page" action="#{directorBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{directorBean.toHomePage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="panelPersonalInformation" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Alert" />
+                    </f:facet>
+                    <h:outputLabel  value="Date" />
+                    <h:inputText value="#{jmsService.date}"/>
+
+                    <h:outputLabel value="Time" />
+                    <h:inputText value="#{jmsService.time}"/>
+
+                    <h:outputLabel value="Reason" />
+                    <h:inputText value="#{jmsService.reason}"/>
+                </h:panelGrid>
+                <h:commandLink value="Send" action="#{jmsService.sendMessage()}" />
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

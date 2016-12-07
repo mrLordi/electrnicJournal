@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Teacher details</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{teachersBean.toSchoolPage()}" />
+                <h:commandLink value="Teachers page" action="#{teachersBean.toTeachersPage()}" />
+                <h:commandLink value="Classes page" action="#{teachersBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{teachersBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{teachersBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="showTeacher" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Teacher details" />
+                    </f:facet>
+
+                    <h:outputLabel  value="Name" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.name}"/>
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.name}"/>
+
+                    <h:outputLabel  value="Patronymic" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.patronymic}"/>
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.patronymic}"/>
+
+                    <h:outputLabel  value="Surname" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.surname}" />
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.surname}"/>
+
+                    <h:outputLabel  value="Birth" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacherBirthStr}"/>
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacherBirthStr}"/>
+
+                    <h:outputLabel  value="Phone" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.phoneNumber}"/>
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.phoneNumber}"/>
+
+                    <h:outputLabel  value="Mail" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.mail}"/>
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.mail}"/>
+
+                    <h:outputLabel  value="Address" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.address}"/>
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.address}"/>
+
+                    <h:outputLabel value="Qualification" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.qualification}"/>
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.qualification}"/>
+
+                    <h:outputLabel value="Additional information" />
+                    <h:inputText readonly="true" rendered="#{!teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.additional}"/>
+                    <h:inputText rendered="#{teachersBean.editTeacher}"
+                                 value="#{teachersBean.teacher.additional}"/>
+                </h:panelGrid>
+
+                <h:commandLink rendered="#{teachersBean.editTeacher}" value="Save"
+                               action="#{teachersBean.saveTeacher()}" />
+
+                <h:commandLink rendered="#{teachersBean.editTeacher}" value="Cancel"
+                               action="#{teachersBean.cancelSaveTeacher()}" />
+
+                <h:commandLink rendered="#{!teachersBean.editTeacher}" value="Edit"
+                               action="#{teachersBean.toEditTeacher()}" />
+
+                <h:commandLink rendered="#{!teachersBean.editTeacher}" value="Dismissal"
+                               action="#{teachersBean.dismissalTeacher()}" />
+            </h:form>
+
+
+            <br />
+            <h:form>
+                <p class="subheader">Disciplines</p>
+                <h:form rendered="#{!teachersBean.disciplinesInTeacherExist}">
+                    <p class="subheader">no available disciplines</p>
+                </h:form>
+                <h:panelGrid id="teacherDisciplines" columns="2" rendered="#{teachersBean.disciplinesInTeacherExist}"
+                             styleClass="miss">
+
+                    <ui:repeat var="discipline" value="#{teachersBean.teacher.disciplines.toArray()}">
+                        <tr>
+                            <td><h:outputLabel  value="#{discipline.name}" /></td>
+                            <td><h:commandLink value="Delete" action="#{teachersBean.deleteDisciplineForTeacher(discipline)}"
+                                               styleClass="innerLink"/></td>
+                        </tr>
+                    </ui:repeat>
+
+                </h:panelGrid>
+            </h:form>
+
+            <h:form>
+                <h:panelGrid id="addTeacherDisciplines" columns="2" rendered="#{teachersBean.addDisciplineForTeacher}">
+                    <f:event listener="#{teachersBean.validateDiscipline}" type="postValidate" />
+                    <h:outputLabel  value="Discipline *"/>
+                    <h:inputText id="discipline" value="#{teachersBean.discipline}"/>
+                </h:panelGrid>
+
+                <h:message for="addTeacherDisciplines" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink rendered="#{!teachersBean.addDisciplineForTeacher}"
+                               value="Add discipline" action="#{teachersBean.toAddDisciplineForTeacher()}" />
+                <h:commandLink rendered="#{teachersBean.addDisciplineForTeacher}"
+                               value="Save" action="#{teachersBean.addDisciplineForTeacher()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{teachersBean.addDisciplineForTeacher}"
+                               value="Cancel" action="#{teachersBean.cancelAddDisciplineForTeacher()}" />
+            </h:form>
+            <br />
+            <h:form rendered="#{!teachersBean.lessonInTeacherExist}">
+                <p class="subheader">No available lessons</p>
+                <h:commandLink rendered="#{!teachersBean.addLessonForTeacher}"
+                               value="Add lesson" action="#{teachersBean.toAddLessonForTeacher()}" />
+            </h:form>
+            <h:form rendered="#{teachersBean.lessonInTeacherExist}">
+                <p class="subheader">All lessons</p>
+                <table class="wideTable">
+                    <tr>
+                        <th>Discipline</th>
+                        <th>Class</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="classes" value="#{teachersBean.teacher.classes.toArray()}">
+                        <tr>
+                            <td>#{classes.discipline.name}</td>
+                            <td>#{classes.className.name}</td>
+                            <td>
+                                <h:commandLink value="Details" styleClass="smallLinkForClasses"
+                                               action="#{disciplineBean.disciplineForClassDetails(classes)}" />
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                <h:commandLink rendered="#{!teachersBean.addLessonForTeacher}"
+                               value="Add lesson" action="#{teachersBean.toAddLessonForTeacher()}" />
+            </h:form>
+
+            <h:form rendered="#{teachersBean.addLessonForTeacher}">
+                <h:panelGrid id="addLesson" columns="2">
+                    <f:event listener="#{teachersBean.validateLesson}" type="postValidate" />
+                    <h:outputLabel  value="Discipline *" />
+                    <h:inputText id="addDiscipline" value="#{teachersBean.discipline}"/>
+                    <h:outputLabel  value="Class *" />
+                    <h:inputText id="class" value="#{teachersBean.className}"/>
+
+                </h:panelGrid>
+                <h:message for="addLesson" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink value="Save" action="#{teachersBean.addLessonForTeacher()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{teachersBean.addLessonForTeacher}"
+                               value="Cancel" action="#{teachersBean.cancelAddLessonForTeacher()}" />
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

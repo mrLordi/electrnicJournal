@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+>
+
+<h:head>
+    <title>Add student</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+
+            <h:form>
+                <h:commandLink value="School page" action="#{classBean.toSchoolPage()}" />
+                <h:commandLink value="Teachers page" action="#{classBean.toTeachersPage()}" />
+                <h:commandLink value="Classes page" action="#{classBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{classBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{classBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+
+        </div>
+        <div class="dataBlock">
+            <h:form rendered="#{studentBean.addStudent}">
+                <h:panelGrid id="addStudent" columns="2">
+                    <f:event listener="#{studentBean.validateForm}" type="postValidate" />
+                    <f:facet name="header">
+                        <h:outputText value="Add student" />
+                    </f:facet>
+                    <h:outputLabel  value="Name *" />
+                    <h:inputText id="name" value="#{studentBean.name}"/>
+                    <h:outputLabel  value="Patronymic *" />
+                    <h:inputText id="patronymic" value="#{studentBean.patronymic}"/>
+                    <h:outputLabel  value="Surname *" />
+                    <h:inputText id="surname" value="#{studentBean.surname}"/>
+                    <h:outputLabel  value="Birth *" />
+                    <h:inputText id="birth" value="#{studentBean.birth}">
+                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                    </h:inputText>
+                    <h:outputLabel  value="Phone *" />
+                    <h:inputText id="phone" value="#{studentBean.phone}"/>
+                    <h:outputLabel  value="Mail*" />
+                    <h:inputText id="mail" value="#{studentBean.mail}"/>
+                    <h:outputLabel  value="Address *" />
+                    <h:inputText id="address" value="#{studentBean.address}"/>
+                    <h:outputLabel  value="Additional information" />
+                    <h:inputTextarea id="additionalInformation" value="#{studentBean.additionalInformation}"/>
+
+                </h:panelGrid>
+
+                <h:message for="birth" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:message for="addStudent" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink value="Save" action="#{studentBean.addStudent()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink value="Cancel" action="#{studentBean.cancelAddStudent()}" />
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

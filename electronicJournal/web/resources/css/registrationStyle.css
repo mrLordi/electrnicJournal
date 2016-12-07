@@ -1,0 +1,67 @@
+body {
+    background-color: #74C35A;
+}
+
+.registerForm {
+    display: block;
+    background-color: white;
+    width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px 0 #686868;
+    color: red;
+}
+
+.registerGroup {
+    margin: auto;
+}
+
+input[type="text"], input[type="password"] {
+    border: 0px solid transparent;
+    width: 300px;
+    height: 30px;
+    margin: 2px 5px;
+    text-align: center;
+    color: #BCBCBC;
+    background-color: #F2F2F2;
+}
+
+textarea {
+    border: 0px solid transparent;
+    width: 296px;
+    height: 30px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 8px;
+    text-align: center;
+    color: #BCBCBC;
+    background-color: #F2F2F2;
+    resize: vertical;
+}
+
+a.link {
+    display: inline-block;
+    width: 100px;
+    margin: 0 10px;
+    background-color: #74C35A;
+    color: white;
+    border-radius: 7px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+a.link:hover {
+    background-color: #39881F;
+}
+
+.signIn {
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #BCBCBC;
+}
+
+p a {
+    color: #00B242;
+}

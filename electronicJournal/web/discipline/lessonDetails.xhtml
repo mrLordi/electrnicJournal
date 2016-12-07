@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Lesson details</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form rendered="#{disciplineBean.directorRole}">
+                <h:commandLink value="School page" action="#{disciplineBean.toSchoolPage()}" />
+                <h:commandLink value="Teachers page" action="#{disciplineBean.toTeachersPage()}" />
+                <h:commandLink value="Classes page" action="#{disciplineBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{disciplineBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{disciplineBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+            <h:form rendered="#{disciplineBean.teacherRole}">
+                <h:commandLink value="School page" action="#{disciplineBean.toTeacherSchoolPage()}" />
+                <h:commandLink value="Home Page" action="#{disciplineBean.toTeacherHomePage()}"/>
+                <h:commandLink value="Recieve message" action="#{jmsReceiver.receiveMessage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+            <h:form rendered="#{disciplineBean.classTeacherRole}">
+                <h:commandLink value="School page" action="#{classTeacherController.toSchoolPage()}" />
+                <h:commandLink value="Class page" action="#{classTeacherController.toClassPage()}" />
+                <h:commandLink value="Home Page" action="#{classTeacherController.toHomePage()}"/>
+                <h:commandLink value="Recieve message" action="#{jmsReceiver.receiveMessage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <p class="header">Discipline: #{disciplineBean.disciplineForClass.discipline.name}</p>
+                <p class="header">Class: #{disciplineBean.disciplineForClass.className.name}</p>
+            </h:form>
+            <br />
+
+            <h:form rendered="#{!disciplineBean.editLesson}">
+
+                <p class="subheader">Date: #{disciplineBean.dateOfLesson(disciplineBean.lesson)}</p>
+                <p class="subheader">Theme: #{disciplineBean.lesson.theme}</p>
+
+                <table class="wideTable">
+                    <tr>
+                        <th>Student</th>
+                        <th>Activity</th>
+                        <th>Additional</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="student" value="#{disciplineBean.allStudents.toArray()}">
+                        <tr>
+                            <td>#{student.name} #{student.surname}</td>
+                            <td>#{disciplineBean.receiveLessonResult(student).activity}</td>
+                            <td>#{disciplineBean.receiveLessonResult(student).additional}</td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+
+                <h:commandLink value="Edit" action="#{disciplineBean.toEditLesson()}" />
+                <h:commandLink value="Back" action="#{disciplineBean.disciplineForClassDetails(disciplineBean.disciplineForClass)}" />
+            </h:form>
+
+            <h:form rendered="#{disciplineBean.editLesson}">
+                <h:panelGrid columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Edit lesson" />
+                    </f:facet>
+                    <h:outputLabel  value="Date" />
+                    <h:inputText value="#{disciplineBean.lessonDate}" />
+                    <h:outputLabel  value="Theme" />
+                    <h:inputTextarea id="theme" value="#{disciplineBean.lesson.theme}"/>
+                </h:panelGrid>
+
+                <br />
+                <table class="wideTable">
+                    <tr>
+                        <th>Student</th>
+                        <th>Activity</th>
+                        <th>Additional</th>
+                    </tr>
+                    <tbody>
+
+                    <ui:repeat var="student" value="#{disciplineBean.allStudents.toArray()}">
+                        <tr>
+                            <td><h:outputLabel  value="#{student.name} #{student.surname}" /></td>
+                            <td><h:inputText value="#{disciplineBean.receiveLessonResult(student).activity}"
+                                             styleClass="activity" /></td>
+                            <td><h:inputText value="#{disciplineBean.lessonResult.additional}"
+                                             styleClass="additional" /> </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+
+                <h:commandLink value="Save" action="#{disciplineBean.editLesson()}" />
+                <h:commandLink value="Cancel" action="#{disciplineBean.cancelEditLesson()}" />
+            </h:form>
+
+            <br />
+        </div>
+    </div>
+</h:body>
+
+</html>

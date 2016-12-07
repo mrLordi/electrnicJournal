@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <title>Login</title>
+    <h:outputStylesheet library="css" name="loginStyle.css" />
+</h:head>
+
+<h:body>
+    <h:form styleClass="loginForm">
+        <h:panelGrid columns="1" id="LoginGroupPanel" styleClass="loginGroup">
+            <f:event listener="#{userSession.validateForm}" type="postValidate" />
+            <h:panelGroup>
+                <h:inputText id="login" a:placeholder="Login" value="#{userSession.username}"/>*
+            </h:panelGroup>
+            <h:panelGroup>
+                <h:inputSecret id="password" a:placeholder="Password" value="#{userSession.password}"/>*
+            </h:panelGroup>
+        </h:panelGrid>
+        <h:message for="LoginGroupPanel" style="color: red;" /><br />
+        <h:commandLink value="Sign in" action="#{userSession.login()}" styleClass="link"/>
+        <h:link value="Back" outcome="/index" styleClass="link"/>
+        <p class="createAccount">Are you do not have an account?
+            <h:link rendered="#{!userSession.isLogin()}"
+                    outcome="#{accountBean.toRegistration()}" value="Create an account"/>
+        </p>
+    </h:form>
+</h:body>
+</html>

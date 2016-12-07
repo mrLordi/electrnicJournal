@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Class details</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{classBean.toSchoolPage()}" />
+                <h:commandLink value="Teachers page" action="#{classBean.toTeachersPage()}" />
+                <h:commandLink value="Classes page" action="#{classBean.toClassesPage()}" />
+                <h:commandLink value="Home Page" action="#{classBean.toHomePage()}"/>
+                <h:commandLink value="Send message" action="#{classBean.toSendMessage()}" />
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+            <h:form>
+                <h:panelGrid id="showClass" columns="2">
+                    <f:facet name="header">
+                        <h:outputText value="Class details" />
+                    </f:facet>
+
+                    <h:outputLabel  value="Name" />
+                    <h:inputText readonly="true" rendered="#{!classBean.editClass}"
+                                 value="#{classBean.className.name}"/>
+                    <h:inputText rendered="#{classBean.editClass}"
+                                 value="#{classBean.className.name}"/>
+                </h:panelGrid>
+
+                <h:commandLink rendered="#{classBean.editClass}" value="Save"
+                               action="#{classBean.saveClass()}" />
+
+                <h:commandLink rendered="#{!classBean.editClass}" value="Edit"
+                               action="#{classBean.toEditClass()}" />
+
+                <h:commandLink rendered="#{!classBean.editClass and classBean.dissolveClass}"
+                               value="Dissolve" action="#{classBean.dissolveClass()}" />
+            </h:form>
+            <h:form>
+                <h:commandLink rendered="#{classBean.editClass}" value="Cancel"
+                               action="#{classBean.cancelSaveClass()}" />
+            </h:form>
+            <br />
+
+            <h:form rendered="#{!classBean.classTeacherExist and !classBean.addClassTeacher}">
+                <p class="header">Class teacher does not exist. </p>
+                <h:commandLink value="Appoint class teacher" action="#{classBean.toAddClassTeacher()}" />
+            </h:form>
+
+
+            <h:form rendered="#{classBean.addClassTeacher and !classBean.addExistingTeacher}">
+                <p class="header">Appoint class teacher</p>
+                <h:commandLink rendered="#{teachersBean.teacherExist}"
+                               value="Appoint an existing teacher" action="#{classBean.toAddExistingTeacher()}" />
+                <h:commandLink value="Add new class teacher" action="#{classBean.toAddNewClassTeacher()}" />
+            </h:form>
+
+
+            <h:form rendered="#{classBean.addExistingTeacher}" >
+                <h:panelGrid id="addExistingTeacher" columns="2">
+                    <f:event listener="#{classBean.validateTeacherLogin}" type="postValidate" />
+                    <f:facet name="header">
+                        <h:outputText value="Appoint an existing teacher" />
+                    </f:facet>
+                    <h:outputLabel  value="Login *" />
+                    <h:inputText id="teacherLogin" value="#{classBean.teacherLogin}"/>
+                </h:panelGrid>
+                <h:message for="addExistingTeacher" style="color: red; margin: auto; display: block; text-align: center" />
+                <h:commandLink value="Appoint" action="#{classBean.addExistingTeacher()}" />
+            </h:form>
+            <h:form rendered="#{classBean.addExistingTeacher}">
+                <h:commandLink value="Cancel" action="#{classBean.cancelAddExistingTeacher()}" />
+            </h:form>
+
+            <br />
+            <h:form rendered="#{classBean.classTeacherExist}" >
+
+                <h:panelGrid id="classTeacher" columns="2" styleClass="wideTable">
+                    <f:facet name="header">
+                        <h:outputText value="Class teacher" />
+                    </f:facet>
+
+                    <h:outputLabel value="#{classBean.className.classTeacher.name} #{classBean.className.classTeacher.surname}" />
+                    <h:commandLink value="Details" styleClass="smallLink"
+                                   action="#{teachersBean.classTeacherDetails(classBean.className.classTeacher)}" />
+                </h:panelGrid>
+
+                <br />
+            </h:form>
+
+
+
+            <h:form rendered="#{classBean.dissolveClass}">
+                <p class="header">Students does not exist. You can dissolve the class or add students.</p>
+                <h:commandLink value="Add student" action="#{studentBean.toAddStudent(classBean.className)}" />
+            </h:form>
+
+
+
+            <h:form rendered="#{!classBean.dissolveClass}">
+                <p class="header">All students this class</p>
+                <table class="wideTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="student" value="#{classBean.allStudent.toArray()}">
+                        <tr>
+                            <td>#{student.name}</td>
+                            <td>#{student.surname}</td>
+                            <td>
+                                <h:commandLink value="Details" styleClass="smallLink"
+                                               action="#{studentBean.studentDetails(student)}" />
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                <h:commandLink value="Add student" action="#{studentBean.toAddStudent(classBean.className)}" />
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>

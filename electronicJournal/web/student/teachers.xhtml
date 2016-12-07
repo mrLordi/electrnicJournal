@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Teachers</title>
+    <h:outputStylesheet library="css" name="directorStyle.css" />
+</h:head>
+
+<h:body>
+    <div class="contentBlock">
+        <div class="leftMenu">
+            <h:form>
+                <h:commandLink value="School page" action="#{studentController.toSchoolPage()}" />
+                <h:commandLink value="Class teacher page" action="#{studentController.toClassTeacher()}" />
+                <h:commandLink value="Teachers page" action="#{studentController.toTeachersPage()}" />
+                <h:commandLink value="Home Page" action="#{studentController.toHomePage()}"/>
+                <h:commandLink value="Recieve message" action="#{jmsReceiver.receiveMessage()}"/>
+                <h:commandLink value="Log out" action="#{userSession.logout()}" />
+            </h:form>
+        </div>
+        <div class="dataBlock">
+
+            <h:form>
+                <table class="wideTable">
+                    <tr>
+                        <th>Teacher</th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody>
+                    <ui:repeat var="teacher" value="#{studentController.allTeachers.toArray()}">
+                        <tr>
+                            <td>#{teacher.name} #{teacher.surname}</td>
+                            <td><h:commandLink value="Details" styleClass="smallLinkForClasses"
+                                               action="#{studentController.toTeacherDetails(teacher)}" /></td>
+                        </tr>
+                    </ui:repeat>
+                    </tbody>
+                </table>
+                <h:commandLink value="Back" action="/student/studentIndex" />
+            </h:form>
+        </div>
+    </div>
+</h:body>
+
+</html>
