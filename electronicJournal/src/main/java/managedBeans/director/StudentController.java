@@ -94,7 +94,7 @@ public class StudentController {
 
     public String toTransferStudent() {
         init();
-        //// TODO: transfer student
+        // TODO: transfer student
         return "/director/classes/studentDetails";
     }
 
